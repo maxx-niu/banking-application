@@ -1,4 +1,4 @@
-export type TAccountType = 'checking' | 'savings';
+export type TAccountType = 'chequing' | 'savings';
 
 export interface ITransaction {
   id: number;

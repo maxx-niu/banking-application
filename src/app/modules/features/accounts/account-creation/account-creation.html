@@ -1,0 +1,9 @@
+<form [formGroup]="form">
+  <input type="text" placeholder="Account name" formControlName="name" />
+  <div>
+    <label><input type="radio" value="chequing" formControlName="type" /> Chequing</label>
+    <label><input type="radio" value="savings" formControlName="type" /> Savings</label>
+  </div>
+  <input type="text" placeholder="Balance" formControlName="balance" appNumbersOnlyDirective />
+  <button type="submit" [disabled]="form.invalid">Create account</button>
+</form>

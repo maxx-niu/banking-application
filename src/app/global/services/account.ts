@@ -27,6 +27,9 @@ export class Account {
     return Array.from(this.allAccountsMap.values());
   }
 
+  /**
+   * Transfers from the current active account to another account
+   */
   transferFunds(toId: string, amount: number): boolean {
     const to = this.allAccountsMap.get(toId);
 
@@ -52,6 +55,6 @@ export class Account {
   }
 
   getTransactionHistory() {
-    return this.currentAccount.history;
+    return this.currentAccount?.history;
   }
 }
