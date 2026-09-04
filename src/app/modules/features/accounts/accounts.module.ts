@@ -4,7 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { AccountCreationComponent } from './account-creation/account-creation.component';
 import { AccountListComponent } from './account-list/account-list.component';
-import { NumbersOnlyDirective } from '../../../global/directives/numbers-only.directive';
+import { NumbersOnlyDirective } from '@app/global/directives/numbers-only.directive';
 
 @NgModule({
   declarations: [AccountCreationComponent, AccountListComponent],

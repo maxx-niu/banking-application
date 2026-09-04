@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import type { ITransaction, IAccount } from '../../types';
+import type { ITransaction, IAccount } from '@app/types';
 
 @Injectable({
   providedIn: 'root',
@@ -23,7 +23,7 @@ export class AccountService {
     this.currentAccount = account;
   }
 
-  getAccounts(): IAccount[] {
+  getAccounts() {
     return Array.from(this.allAccountsMap.values());
   }
 
@@ -56,5 +56,9 @@ export class AccountService {
 
   getTransactionHistory() {
     return this.currentAccount?.history;
+  }
+
+  getCurrentAccount() {
+    return this.currentAccount;
   }
 }
