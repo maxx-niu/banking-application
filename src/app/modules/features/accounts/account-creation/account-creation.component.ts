@@ -4,10 +4,10 @@ import { FormBuilder, Validators } from '@angular/forms';
 @Component({
   selector: 'app-account-creation',
   standalone: false,
-  styleUrl: './account-creation.css',
-  templateUrl: './account-creation.html',
+  styleUrl: './account-creation.component.css',
+  templateUrl: './account-creation.component.html',
 })
-export class AccountCreation {
+export class AccountCreationComponent {
   private fb = inject(FormBuilder);
 
   form = this.fb.group({

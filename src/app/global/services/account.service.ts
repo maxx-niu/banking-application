@@ -5,7 +5,7 @@ import type { ITransaction, IAccount } from '../../types';
 @Injectable({
   providedIn: 'root',
 })
-export class Account {
+export class AccountService {
   private currentAccount: IAccount | null = null;
   private allAccountsMap = new Map<string, IAccount>();
   private nextTransactionId = 1;

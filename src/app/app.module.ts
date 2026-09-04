@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
-import { AppComponent } from './app';
+import { AppComponent } from './app.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { routes } from './app.routes';
-import { AccountsModule } from './modules/features/accounts/accounts-module';
-import { NumbersOnlyDirective } from './global/directives/numbers-only-directive';
+import { AccountsModule } from './modules/features/accounts/accounts.module';
+import { NumbersOnlyDirective } from './global/directives/numbers-only.directive';
 
 @NgModule({
   declarations: [AppComponent],
