@@ -10,7 +10,18 @@
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
-          "standalone": false
+          "standalone": false,
+          "type": "component"
+        },
+        "@schematics/angular:directive": {
+          "type": "directive"
+        },
+        "@schematics/angular:service": {
+          "type": "service",
+          "injectable": true
+        },
+        "@schematics/angular:module": {
+          "typeSeparator": "."
         }
       },
       "root": "",
