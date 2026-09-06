@@ -1,5 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { NonNullableFormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 import { AccountService } from '@app/global/services/account.service';
 
@@ -14,6 +15,7 @@ import type { IAccount, TAccountType } from '@app/types';
 export class AccountCreationComponent {
   private fb = inject(NonNullableFormBuilder);
   private accountService = inject(AccountService);
+  private router = inject(Router);
 
   form = this.fb.group({
     name: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(30)]],
@@ -34,6 +36,8 @@ export class AccountCreationComponent {
         history: [],
       };
       this.accountService.registerAccount(account);
+      this.accountService.setCurrentAccount(account);
+      this.router.navigate(['/select-account']);
     }
   }
 }

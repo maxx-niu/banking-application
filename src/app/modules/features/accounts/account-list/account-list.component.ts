@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 
 import { AccountService } from '@app/global/services/account.service';
 
@@ -14,9 +14,13 @@ export class AccountListComponent {
   private accountService = inject(AccountService);
 
   accounts = this.accountService.getAccounts();
-  currentAccount = this.accountService.getCurrentAccount();
+  currentAccount = this.accountService.currentAccount;
 
   selectAccount(account: IAccount) {
     this.accountService.setCurrentAccount(account);
+  }
+
+  handleLogout() {
+    this.accountService.logout();
   }
 }

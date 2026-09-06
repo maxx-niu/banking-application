@@ -1,9 +1,12 @@
 <div>Available accounts:</div>
 <br />
 @for (account of accounts; track account.id) {
-  <div (click)="selectAccount(account)">
-    Account name: {{ account.name }} — Type: {{ account.type }} — Balance: {{ account.balance }}
-  </div>
+  <button (click)="selectAccount(account)">
+    Account name: {{ account.name }} — Type: {{ account.type }} — Balance: ${{ account.balance }}
+  </button>
 }
 <br />
-<div>Currently on account: {{ currentAccount?.name }}</div>
+<div>Currently on account: {{ currentAccount()?.name }}</div>
+@if (currentAccount()) {
+  <button (click)="handleLogout()">logout</button>
+}

@@ -14,11 +14,15 @@ export class AppComponent implements OnInit {
   private router = inject(Router);
 
   ngOnInit(): void {
-    if (!this.accountService.getCurrentAccount()) {
-      if (this.accountService.getAccounts().length === 0) {
-        // Route to account creation page
-        this.router.navigate(['/sign-up']);
-      }
+    if (this.accountService.currentAccount()) return;
+
+    if (this.accountService.getAccounts().length === 0) {
+      this.router.navigate(['/sign-up']);
+    } else if (!this.accountService.currentAccount()) {
+      this.router.navigate(['/select-account']);
+    } else {
+      // TODO: navigate to transfer page
+      console.log('navigate to transfer page');
     }
   }
 }
