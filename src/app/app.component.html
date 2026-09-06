@@ -1,2 +1,13 @@
 <h1>Hello from the app</h1>
+<nav>
+  @if (hasAccounts() && hasLoggedIn()) {
+    <a routerLink="/select-account">Accounts</a>
+  }
+  <a routerLink="/sign-up">New Account</a>
+  @if (hasLoggedIn()) {
+    <a routerLink="/transfer">Transfer</a>
+    <a routerLink="/history">History</a>
+  }
+</nav>
+<br />
 <router-outlet />

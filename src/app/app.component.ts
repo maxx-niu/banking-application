@@ -24,4 +24,12 @@ export class AppComponent implements OnInit {
       this.router.navigate(['/transfer']);
     }
   }
+
+  hasLoggedIn() {
+    return !!this.accountService.currentAccount();
+  }
+
+  hasAccounts() {
+    return this.accountService.getAccounts().length > 0;
+  }
 }

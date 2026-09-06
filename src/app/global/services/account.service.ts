@@ -8,30 +8,29 @@ import type { ITransaction, IAccount } from '@app/types';
 export class AccountService {
   private _currentAccount = signal<IAccount | null>(null);
   readonly currentAccount = this._currentAccount.asReadonly();
-
-  private allAccountsMap = new Map<string, IAccount>();
-  private nextTransactionId = 1;
+  private nextTransactionId: number = 1;
 
   checkIfAccountExists(accountId: string) {
-    return this.allAccountsMap.has(accountId);
+    return this.allAccountsMap().has(accountId);
   }
 
-  registerAccount(account: IAccount) {
-    if (this.allAccountsMap.has(account.id)) return;
+  private allAccountsMap = signal(new Map<string, IAccount>());
 
-    this.allAccountsMap.set(account.id, account);
-    console.log('account:\n', account, '\n registered');
+  registerAccount(account: IAccount) {
+    if (this.allAccountsMap().has(account.id)) return;
+
+    this.allAccountsMap.update((currMap) => new Map(currMap).set(account.id, account));
   }
 
   setCurrentAccount(account: IAccount) {
     // If the account doesn't exist, or the account to set to is already the current, no-op
-    if (!this.allAccountsMap.has(account.id) || this.currentAccount()?.id === account.id) return;
+    if (!this.allAccountsMap().has(account.id) || this.currentAccount()?.id === account.id) return;
 
     this._currentAccount.set(account);
   }
 
   getAccounts() {
-    return Array.from(this.allAccountsMap.values());
+    return Array.from(this.allAccountsMap().values());
   }
 
   /**
@@ -39,7 +38,7 @@ export class AccountService {
    */
   transferFunds(toId: string, amount: number): boolean {
     const current = this.currentAccount();
-    const to = this.allAccountsMap.get(toId);
+    const to = this.allAccountsMap().get(toId);
 
     // Unknown accounts, non-positive amounts, or insufficient balance are all no-ops
     if (!current || !to || amount <= 0 || current.balance < amount) return false;

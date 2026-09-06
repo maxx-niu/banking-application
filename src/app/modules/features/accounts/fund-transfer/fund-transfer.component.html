@@ -4,15 +4,21 @@
 <br />
 <form [formGroup]="form" (ngSubmit)="handleSubmit()">
   <div>
-    <select formControlName="toId">
-      <option value="" disabled>Select an account</option>
-      @for (account of otherAccounts; track account.id) {
-        <option [value]="account.id">{{ account.name }} — {{ account.type }}</option>
-      }
-    </select>
+    <label
+      >Transfer to:
+      <select formControlName="toId">
+        <option value="" disabled>Select an account</option>
+        @for (account of otherAccounts; track account.id) {
+          <option [value]="account.id">{{ account.name }} — {{ account.type }}</option>
+        }
+      </select>
+    </label>
   </div>
   <div>
-    <input type="number" placeholder="Amount" formControlName="amount" appNumbersOnlyDirective />
+    <label>
+      Amount:
+      <input type="number" placeholder="Amount" formControlName="amount" appNumbersOnlyDirective
+    /></label>
     @if (
       form.get('amount')?.invalid && (form.get('amount')?.touched || form.get('amount')?.dirty)
     ) {

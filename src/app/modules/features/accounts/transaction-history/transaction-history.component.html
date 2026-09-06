@@ -1,0 +1,10 @@
+<div>Transaction history for: {{ currentAccount()?.name }}</div>
+<br />
+@for (transaction of getTransactions(); track transaction.id) {
+  <div>
+    {{ transaction.date | date: 'short' }} — From: {{ transaction.from }} — To:
+    {{ transaction.to }} — Amount: ${{ transaction.amount }}
+  </div>
+} @empty {
+  <div>No transactions yet.</div>
+}
