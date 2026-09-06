@@ -1,0 +1,26 @@
+<div>Transferring from: {{ currentAccount()?.name }} — Balance: ${{ currentAccount()?.balance }}</div>
+<br />
+<form [formGroup]="form" (ngSubmit)="handleSubmit()">
+  <div>
+    <select formControlName="toId">
+      <option value="" disabled>Select an account</option>
+      @for (account of otherAccounts; track account.id) {
+        <option [value]="account.id">{{ account.name }} — {{ account.type }}</option>
+      }
+    </select>
+  </div>
+  <div>
+    <input type="text" placeholder="Amount" formControlName="amount" appNumbersOnlyDirective />
+    @if (form.get('amount')?.invalid && (form.get('amount')?.touched || form.get('amount')?.dirty)) {
+      <div>
+        @if (form.get('amount')?.hasError('required')) {
+          <div>An amount is required</div>
+        }
+        @if (form.get('amount')?.hasError('min')) {
+          <div>Amount must be greater than 0</div>
+        }
+      </div>
+    }
+  </div>
+  <button type="submit" [disabled]="form.invalid">Transfer</button>
+</form>

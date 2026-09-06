@@ -21,8 +21,7 @@ export class AppComponent implements OnInit {
     } else if (!this.accountService.currentAccount()) {
       this.router.navigate(['/select-account']);
     } else {
-      // TODO: navigate to transfer page
-      console.log('navigate to transfer page');
+      this.router.navigate(['/transfer']);
     }
   }
 }
