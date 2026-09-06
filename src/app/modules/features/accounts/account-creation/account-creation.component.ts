@@ -9,7 +9,6 @@ import type { IAccount, TAccountType } from '@app/types';
 @Component({
   selector: 'app-account-creation',
   standalone: false,
-  styleUrl: './account-creation.component.css',
   templateUrl: './account-creation.component.html',
 })
 export class AccountCreationComponent {

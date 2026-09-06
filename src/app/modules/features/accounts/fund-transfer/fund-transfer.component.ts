@@ -11,7 +11,6 @@ import { AccountService } from '@app/global/services/account.service';
 @Component({
   selector: 'app-fund-transfer',
   standalone: false,
-  styleUrl: './fund-transfer.component.css',
   templateUrl: './fund-transfer.component.html',
 })
 export class FundTransferComponent {
