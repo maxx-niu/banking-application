@@ -1,5 +1,4 @@
-<h1>Hello from the app</h1>
-<nav>
+<nav class="d-flex gap-3 py-4 px-4 border-bottom">
   @if (hasAccounts() && hasLoggedIn()) {
     <a routerLink="/select-account">Accounts</a>
   }
@@ -9,5 +8,6 @@
     <a routerLink="/history">History</a>
   }
 </nav>
-<br />
-<router-outlet />
+<div class="container py-4">
+  <router-outlet />
+</div>

@@ -1,14 +1,18 @@
-<form [formGroup]="form" (ngSubmit)="handleSubmit()">
-  <div>
-    <span>
-      <input type="text" placeholder="Account name" formControlName="name" />
-      @if (form.get('name')?.hasError('required')) {
-        <span>*</span>
-      }
-    </span>
+<form [formGroup]="form" (ngSubmit)="handleSubmit()" class="d-flex flex-column">
+  <div class="mb-3">
+    <label class="form-label">Account name</label>
+    <input
+      class="form-control"
+      [class.is-invalid]="
+        form.get('name')?.invalid && (form.get('name')?.touched || form.get('name')?.dirty)
+      "
+      type="text"
+      placeholder="Account name"
+      formControlName="name"
+    />
 
     @if (form.get('name')?.invalid && (form.get('name')?.touched || form.get('name')?.dirty)) {
-      <div>
+      <div class="invalid-feedback">
         @if (form.get('name')?.hasError('required')) {
           <div>Account name is required</div>
         }
@@ -21,27 +25,47 @@
       </div>
     }
   </div>
-  <div>
-    <label><input type="radio" value="chequing" formControlName="type" /> Chequing</label>
-    <label><input type="radio" value="savings" formControlName="type" /> Savings</label>
-  </div>
-  <div>
-    <span>
-      <input
-        type="number"
-        placeholder="Balance"
-        formControlName="balance"
-        appNumbersOnlyDirective
-      />
-      @if (form.get('balance')?.hasError('required')) {
-        <span>*</span>
-      }
-    </span>
 
+  <div class="mb-3">
+    <label class="form-label">Account Type</label>
+    <div class="form-check">
+      <input
+        class="form-check-input"
+        type="radio"
+        value="chequing"
+        formControlName="type"
+        id="chequing"
+      />
+      <label class="form-check-label" for="chequing">Chequing</label>
+    </div>
+    <div class="form-check">
+      <input
+        class="form-check-input"
+        type="radio"
+        value="savings"
+        formControlName="type"
+        id="savings"
+      />
+      <label class="form-check-label" for="savings">Savings</label>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label"> Initial Balance </label>
+    <input
+      class="form-control"
+      [class.is-invalid]="
+        form.get('balance')?.invalid && (form.get('balance')?.touched || form.get('balance')?.dirty)
+      "
+      type="text"
+      placeholder="Balance"
+      formControlName="balance"
+      appValidCurrencyDirective
+    />
     @if (
       form.get('balance')?.invalid && (form.get('balance')?.touched || form.get('balance')?.dirty)
     ) {
-      <div>
+      <div class="invalid-feedback">
         @if (form.get('balance')?.hasError('required')) {
           <div>An initial balance is required</div>
         }
@@ -51,6 +75,7 @@
       </div>
     }
   </div>
+
   <app-button
     [disabled]="form.invalid"
     [buttonType]="form.getRawValue().type === 'chequing' ? 'primary' : 'secondary'"

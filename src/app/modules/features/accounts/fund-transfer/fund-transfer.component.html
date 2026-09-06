@@ -17,7 +17,7 @@
   <div>
     <label>
       Amount:
-      <input type="number" placeholder="Amount" formControlName="amount" appNumbersOnlyDirective
+      <input type="text" placeholder="Amount" formControlName="amount" appValidCurrencyDirective
     /></label>
     @if (
       form.get('amount')?.invalid && (form.get('amount')?.touched || form.get('amount')?.dirty)

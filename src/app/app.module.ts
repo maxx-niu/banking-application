@@ -4,11 +4,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { routes } from './app.routes';
 import { AccountsModule } from './modules/features/accounts/accounts.module';
-import { NumbersOnlyDirective } from './global/directives/numbers-only.directive';
+import { ValidCurrencyDirective } from './global/directives/valid-currency.directive';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, RouterModule.forRoot(routes), AccountsModule, NumbersOnlyDirective],
+  imports: [BrowserModule, RouterModule.forRoot(routes), AccountsModule, ValidCurrencyDirective],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

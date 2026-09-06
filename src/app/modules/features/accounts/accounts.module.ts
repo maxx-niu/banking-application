@@ -6,7 +6,7 @@ import { AccountCreationComponent } from './account-creation/account-creation.co
 import { AccountListComponent } from './account-list/account-list.component';
 import { FundTransferComponent } from './fund-transfer/fund-transfer.component';
 import { TransactionHistoryComponent } from './transaction-history/transaction-history.component';
-import { NumbersOnlyDirective } from '@app/global/directives/numbers-only.directive';
+import { ValidCurrencyDirective } from '@app/global/directives/valid-currency.directive';
 import { SharedModule } from '@app/modules/shared/shared.module';
 
 @NgModule({
@@ -16,7 +16,7 @@ import { SharedModule } from '@app/modules/shared/shared.module';
     FundTransferComponent,
     TransactionHistoryComponent,
   ],
-  imports: [CommonModule, ReactiveFormsModule, NumbersOnlyDirective, SharedModule],
+  imports: [CommonModule, ReactiveFormsModule, ValidCurrencyDirective, SharedModule],
   exports: [AccountCreationComponent, FundTransferComponent, TransactionHistoryComponent],
 })
 export class AccountsModule {}

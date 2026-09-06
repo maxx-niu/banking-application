@@ -37,7 +37,7 @@ export class FundTransferComponent {
   handleSubmit() {
     if (this.form.valid) {
       const { toId, amount } = this.form.getRawValue();
-      this.accountService.transferFunds(toId, amount);
+      this.accountService.transferFunds(toId, Number(amount));
     }
   }
 }

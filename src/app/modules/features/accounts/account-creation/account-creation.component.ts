@@ -28,10 +28,12 @@ export class AccountCreationComponent {
       while (this.accountService.checkIfAccountExists(accountId)) {
         accountId = crypto.randomUUID();
       }
-      const formValue = this.form.getRawValue();
+      const { name, type, balance } = this.form.getRawValue();
       const account: IAccount = {
         id: accountId,
-        ...formValue,
+        name,
+        type,
+        balance: Number(balance),
         history: [],
       };
       this.accountService.registerAccount(account);
