@@ -10,10 +10,15 @@ export class AccountService {
   private allAccountsMap = new Map<string, IAccount>();
   private nextTransactionId = 1;
 
+  checkIfAccountExists(accountId: string) {
+    return this.allAccountsMap.has(accountId);
+  }
+
   registerAccount(account: IAccount) {
     if (this.allAccountsMap.has(account.id)) return;
 
     this.allAccountsMap.set(account.id, account);
+    console.log('account:\n', account, '\n registered');
   }
 
   setCurrentAccount(account: IAccount) {

@@ -1,6 +1,11 @@
-<form [formGroup]="form">
+<form [formGroup]="form" (ngSubmit)="handleSubmit()">
   <div>
-    <input type="text" placeholder="Account name" formControlName="name" />
+    <span>
+      <input type="text" placeholder="Account name" formControlName="name" />
+      @if (form.get('name')?.hasError('required')) {
+        <span>*</span>
+      }
+    </span>
 
     @if (form.get('name')?.invalid && (form.get('name')?.touched || form.get('name')?.dirty)) {
       <div>
@@ -21,7 +26,12 @@
     <label><input type="radio" value="savings" formControlName="type" /> Savings</label>
   </div>
   <div>
-    <input type="text" placeholder="Balance" formControlName="balance" appNumbersOnlyDirective />
+    <span>
+      <input type="text" placeholder="Balance" formControlName="balance" appNumbersOnlyDirective />
+      @if (form.get('balance')?.hasError('required')) {
+        <span>*</span>
+      }
+    </span>
 
     @if (
       form.get('balance')?.invalid && (form.get('balance')?.touched || form.get('balance')?.dirty)

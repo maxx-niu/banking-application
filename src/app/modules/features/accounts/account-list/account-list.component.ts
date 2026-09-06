@@ -2,6 +2,8 @@ import { Component, inject } from '@angular/core';
 
 import { AccountService } from '@app/global/services/account.service';
 
+import type { IAccount } from '@app/types';
+
 @Component({
   selector: 'app-account-list',
   standalone: false,
@@ -14,5 +16,7 @@ export class AccountListComponent {
   accounts = this.accountService.getAccounts();
   currentAccount = this.accountService.getCurrentAccount();
 
-  selectAccount = this.accountService.setCurrentAccount;
+  selectAccount(account: IAccount) {
+    this.accountService.setCurrentAccount(account);
+  }
 }
