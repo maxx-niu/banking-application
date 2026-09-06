@@ -1,5 +1,10 @@
 import { Component, inject } from '@angular/core';
-import { NonNullableFormBuilder, Validators } from '@angular/forms';
+import {
+  NonNullableFormBuilder,
+  Validators,
+  AbstractControl,
+  type ValidatorFn,
+} from '@angular/forms';
 
 import { AccountService } from '@app/global/services/account.service';
 
@@ -13,6 +18,13 @@ export class FundTransferComponent {
   private fb = inject(NonNullableFormBuilder);
   private accountService = inject(AccountService);
 
+  private maxBalanceValidator(): ValidatorFn {
+    return (control: AbstractControl) => {
+      const balance = this.currentAccount()?.balance ?? 0;
+      return control.value > balance ? { max: { max: balance, actual: control.value } } : null;
+    };
+  }
+
   currentAccount = this.accountService.currentAccount;
   otherAccounts = this.accountService
     .getAccounts()
@@ -20,7 +32,7 @@ export class FundTransferComponent {
 
   form = this.fb.group({
     toId: ['', Validators.required],
-    amount: [0, [Validators.required, Validators.min(0.01)]],
+    amount: [0, [Validators.required, Validators.min(0.01), this.maxBalanceValidator()]],
   });
 
   handleSubmit() {

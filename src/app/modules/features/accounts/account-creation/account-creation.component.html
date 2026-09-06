@@ -27,7 +27,12 @@
   </div>
   <div>
     <span>
-      <input type="text" placeholder="Balance" formControlName="balance" appNumbersOnlyDirective />
+      <input
+        type="number"
+        placeholder="Balance"
+        formControlName="balance"
+        appNumbersOnlyDirective
+      />
       @if (form.get('balance')?.hasError('required')) {
         <span>*</span>
       }
