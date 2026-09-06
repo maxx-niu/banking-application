@@ -51,5 +51,10 @@
       </div>
     }
   </div>
-  <button type="submit" [disabled]="form.invalid">Create account</button>
+  <app-button
+    [disabled]="form.invalid"
+    [buttonType]="form.getRawValue().type === 'chequing' ? 'primary' : 'secondary'"
+  >
+    Create account
+  </app-button>
 </form>

@@ -7,6 +7,7 @@ import { AccountListComponent } from './account-list/account-list.component';
 import { FundTransferComponent } from './fund-transfer/fund-transfer.component';
 import { TransactionHistoryComponent } from './transaction-history/transaction-history.component';
 import { NumbersOnlyDirective } from '@app/global/directives/numbers-only.directive';
+import { SharedModule } from '@app/modules/shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,7 @@ import { NumbersOnlyDirective } from '@app/global/directives/numbers-only.direct
     FundTransferComponent,
     TransactionHistoryComponent,
   ],
-  imports: [CommonModule, ReactiveFormsModule, NumbersOnlyDirective],
+  imports: [CommonModule, ReactiveFormsModule, NumbersOnlyDirective, SharedModule],
   exports: [AccountCreationComponent, FundTransferComponent, TransactionHistoryComponent],
 })
 export class AccountsModule {}

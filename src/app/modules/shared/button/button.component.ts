@@ -1,9 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-export enum EButtonTypes {
-  primary = 'primary',
-  secondary = 'secondary',
-}
+export type TButtonTypes = 'primary' | 'secondary';
 
 @Component({
   selector: 'app-button',
@@ -12,6 +9,6 @@ export enum EButtonTypes {
   templateUrl: './button.component.html',
 })
 export class ButtonComponent {
-  @Input() buttonType: EButtonTypes = EButtonTypes.primary;
+  @Input() buttonType: TButtonTypes = 'primary';
   @Input() disabled = false;
 }
