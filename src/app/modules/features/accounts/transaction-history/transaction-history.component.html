@@ -2,8 +2,8 @@
 <br />
 @for (transaction of getTransactions(); track transaction.id) {
   <div>
-    {{ transaction.date | date: 'short' }} — From: {{ transaction.from }} — To:
-    {{ transaction.to }} — Amount: ${{ transaction.amount }}
+    {{ transaction.date | date: 'short' }} — From: {{ getAccountFromId(transaction.from)?.name }} —
+    To: {{ getAccountFromId(transaction.to)?.name }} — Amount: ${{ transaction.amount | currency }}
   </div>
 } @empty {
   <div>No transactions yet.</div>

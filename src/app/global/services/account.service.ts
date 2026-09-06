@@ -70,6 +70,11 @@ export class AccountService {
     return this.currentAccount()?.history;
   }
 
+  getAccountFromId(id: string) {
+    if (this.allAccountsMap().has(id)) return this.allAccountsMap().get(id)!;
+    return null;
+  }
+
   logout() {
     this._currentAccount.set(null);
   }

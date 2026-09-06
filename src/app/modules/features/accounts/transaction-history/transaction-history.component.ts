@@ -16,4 +16,8 @@ export class TransactionHistoryComponent {
   getTransactions() {
     return this.accountService.getTransactionHistory() ?? [];
   }
+
+  getAccountFromId(id: string) {
+    return this.accountService.getAccountFromId(id);
+  }
 }
