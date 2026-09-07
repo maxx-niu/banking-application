@@ -60,7 +60,9 @@
     </app-button>
   </form>
 } @else {
-  <app-no-accounts-available
+  <app-empty-state
     message="You don't have any other accounts to transfer to yet."
-  ></app-no-accounts-available>
+    ctaText="Create another account"
+    ctaLink="/create-account"
+  ></app-empty-state>
 }

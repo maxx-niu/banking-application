@@ -19,6 +19,10 @@
       </div>
     </div>
   } @empty {
-    <app-no-accounts-available></app-no-accounts-available>
+    <app-empty-state
+      message="No other accounts available."
+      ctaText="Create another account"
+      ctaLink="/create-account"
+    ></app-empty-state>
   }
 </div>

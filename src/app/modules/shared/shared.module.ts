@@ -3,11 +3,11 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { ButtonComponent } from './button/button.component';
 import { NavbarComponent } from './navbar/navbar.component';
-import { NoAccountsAvailableComponent } from './no-accounts-available/no-accounts-available.component';
+import { EmptyStateComponent } from './empty-state/empty-state.component';
 
 @NgModule({
-  declarations: [ButtonComponent, NavbarComponent, NoAccountsAvailableComponent],
+  declarations: [ButtonComponent, NavbarComponent, EmptyStateComponent],
   imports: [CommonModule, RouterModule],
-  exports: [ButtonComponent, NavbarComponent, NoAccountsAvailableComponent],
+  exports: [ButtonComponent, NavbarComponent, EmptyStateComponent],
 })
 export class SharedModule {}

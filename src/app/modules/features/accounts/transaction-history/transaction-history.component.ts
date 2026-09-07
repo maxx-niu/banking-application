@@ -10,8 +10,6 @@ import { AccountService } from '@app/global/services/account.service';
 export class TransactionHistoryComponent {
   private accountService = inject(AccountService);
 
-  currentAccount = this.accountService.currentAccount;
-
   getTransactions() {
     return this.accountService.getTransactionHistory() ?? [];
   }
