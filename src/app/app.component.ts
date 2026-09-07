@@ -14,14 +14,10 @@ export class AppComponent implements OnInit {
   private router = inject(Router);
 
   ngOnInit(): void {
-    if (this.accountService.currentAccount()) return;
-
     if (this.accountService.getAccounts().length === 0) {
       this.router.navigate(['/create-account']);
-    } else if (!this.accountService.currentAccount()) {
-      this.router.navigate(['/accounts']);
     } else {
-      this.router.navigate(['/transfer']);
+      this.router.navigate(['/accounts']);
     }
   }
 }

@@ -6,76 +6,61 @@ import type { ITransaction, IAccount } from '@app/types';
   providedIn: 'root',
 })
 export class AccountService {
-  private _currentAccount = signal<IAccount | null>(null);
-  readonly currentAccount = this._currentAccount.asReadonly();
   private nextTransactionId: number = 1;
+  private allAccountsMap = signal(new Map<string, IAccount>());
 
   checkIfAccountExists(accountId: string) {
     return this.allAccountsMap().has(accountId);
   }
 
-  private allAccountsMap = signal(new Map<string, IAccount>());
-
-  registerAccount(account: IAccount) {
+  addAccount(account: IAccount) {
     if (this.allAccountsMap().has(account.id)) return;
 
     this.allAccountsMap.update((currMap) => new Map(currMap).set(account.id, account));
-  }
-
-  setCurrentAccount(account: IAccount) {
-    // If the account doesn't exist, or the account to set to is already the current, no-op
-    if (!this.allAccountsMap().has(account.id) || this.currentAccount()?.id === account.id) return;
-
-    this._currentAccount.set(account);
   }
 
   getAccounts() {
     return Array.from(this.allAccountsMap().values());
   }
 
-  /**
-   * Transfers from the current active account to another account
-   */
-  transferFunds(toId: string, amount: number): boolean {
-    const current = this.currentAccount();
+  transferFunds(fromId: string, toId: string, amount: number): boolean {
+    const from = this.allAccountsMap().get(fromId);
     const to = this.allAccountsMap().get(toId);
 
     // Unknown accounts, non-positive amounts, or insufficient balance are all no-ops
-    if (!current || !to || amount <= 0 || current.balance < amount) return false;
+    if (!from || !to || amount <= 0 || from.balance < amount || fromId === toId) return false;
 
     const transaction: ITransaction = {
       id: this.nextTransactionId++,
-      from: current.id,
+      from: fromId,
       to: toId,
       amount,
       date: new Date(),
     };
 
-    this._currentAccount.update(
-      (account) =>
-        account && {
-          ...account,
-          balance: account.balance - amount,
-          history: [...account.history, transaction],
-        },
+    this.allAccountsMap.update((curr) =>
+      new Map(curr)
+        .set(fromId, {
+          ...from,
+          balance: from.balance - amount,
+          history: [...from.history, transaction],
+        })
+        .set(toId, {
+          ...to,
+          balance: to.balance + amount,
+          history: [...to.history, transaction],
+        }),
     );
-
-    to.balance += amount;
-    to.history.push(transaction);
 
     return true;
   }
 
-  getTransactionHistory() {
-    return this.currentAccount()?.history;
+  getTransactionHistory(id: string) {
+    return this.allAccountsMap().get(id)?.history;
   }
 
   getAccountFromId(id: string) {
     if (this.allAccountsMap().has(id)) return this.allAccountsMap().get(id)!;
     return null;
-  }
-
-  logout() {
-    this._currentAccount.set(null);
   }
 }

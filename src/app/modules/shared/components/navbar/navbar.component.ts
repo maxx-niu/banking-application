@@ -1,6 +1,4 @@
 import { Component, inject } from '@angular/core';
-import { Router } from '@angular/router';
-
 import { AccountService } from '@app/services/account.service';
 
 @Component({
@@ -8,20 +6,4 @@ import { AccountService } from '@app/services/account.service';
   standalone: false,
   templateUrl: './navbar.component.html',
 })
-export class NavbarComponent {
-  private accountService = inject(AccountService);
-  private router = inject(Router);
-
-  hasLoggedIn() {
-    return !!this.accountService.currentAccount();
-  }
-
-  hasAccounts() {
-    return this.accountService.getAccounts().length > 0;
-  }
-
-  handleLogout() {
-    this.accountService.logout();
-    this.router.navigate(['/create-account']);
-  }
-}
+export class NavbarComponent {}

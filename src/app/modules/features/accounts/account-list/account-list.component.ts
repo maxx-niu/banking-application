@@ -3,8 +3,6 @@ import { Router } from '@angular/router';
 
 import { AccountService } from '@app/services/account.service';
 
-import type { IAccount } from '@app/types';
-
 @Component({
   selector: 'app-account-list',
   standalone: false,
@@ -14,13 +12,9 @@ export class AccountListComponent {
   private accountService = inject(AccountService);
   private router = inject(Router);
 
-  currentAccount = this.accountService.currentAccount;
-  otherAccounts = this.accountService
-    .getAccounts()
-    .filter((account) => account.id !== this.currentAccount()?.id);
+  accounts = this.accountService.getAccounts();
 
-  selectAccount(account: IAccount) {
-    this.accountService.setCurrentAccount(account);
-    this.router.navigate(['/transfer']);
+  handleViewHistory(accountId: string) {
+    this.router.navigate(['/history', accountId]);
   }
 }

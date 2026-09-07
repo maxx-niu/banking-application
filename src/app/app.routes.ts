@@ -10,5 +10,5 @@ export const routes: Routes = [
   { path: 'create-account', component: AccountCreationComponent },
   { path: 'accounts', component: AccountListComponent },
   { path: 'transfer', component: FundTransferComponent },
-  { path: 'history', component: TransactionHistoryComponent },
+  { path: 'history/:id', component: TransactionHistoryComponent },
 ];

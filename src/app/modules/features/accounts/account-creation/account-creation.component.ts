@@ -36,8 +36,7 @@ export class AccountCreationComponent {
         balance: Number(balance),
         history: [],
       };
-      this.accountService.registerAccount(account);
-      this.accountService.setCurrentAccount(account);
+      this.accountService.addAccount(account);
       this.router.navigate(['/accounts']);
     }
   }

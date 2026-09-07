@@ -12,7 +12,7 @@ import { TransactionsModule } from './modules/features/transactions/transactions
   declarations: [AppComponent],
   imports: [
     BrowserModule,
-    RouterModule.forRoot(routes),
+    RouterModule.forRoot(routes, { bindToComponentInputs: true }),
     AccountsModule,
     TransactionsModule,
     SharedModule,

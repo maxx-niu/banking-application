@@ -2,21 +2,7 @@
   <span class="navbar-brand lh-1">Banking App</span>
 
   <ul class="navbar-nav flex-row align-items-center gap-3">
-    @if (hasLoggedIn()) {
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/transfer">Transfer</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/history">History</a>
-      </li>
-    }
-    @if (hasAccounts()) {
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/accounts">Accounts</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/create-account">New Account</a>
-      </li>
-    }
+    <li class="nav-item"><a class="nav-link" routerLink="/accounts">Accounts</a></li>
+    <li class="nav-item"><a class="nav-link" routerLink="/transfer">Transfer</a></li>
   </ul>
 </nav>
