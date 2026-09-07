@@ -10,6 +10,7 @@ import type { IAccount, TAccountType } from '@app/types';
   selector: 'app-account-creation',
   standalone: false,
   templateUrl: './account-creation.component.html',
+  styleUrl: './account-creation.component.css',
 })
 export class AccountCreationComponent {
   private fb = inject(NonNullableFormBuilder);

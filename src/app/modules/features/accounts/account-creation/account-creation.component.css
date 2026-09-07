@@ -1,0 +1,4 @@
+/* Bootstrap has no cursor utility, and the whole card is the click target */
+.account-type-card {
+  cursor: pointer;
+}

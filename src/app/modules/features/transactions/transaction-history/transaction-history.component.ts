@@ -89,7 +89,6 @@ export class TransactionHistoryComponent {
 
     const effect = (t: ITransaction) => (t.to === account.id ? t.amount : -t.amount);
 
-    // history doesn't include the opening deposit, so back it out of the current balance
     let balance = account.balance - account.history.reduce((sum, t) => sum + effect(t), 0);
 
     return account.history
@@ -97,7 +96,8 @@ export class TransactionHistoryComponent {
         balance += effect(transaction);
         return { transaction, balance };
       })
-      .filter((entry) => this.matchesFilters(entry.transaction));
+      .filter((entry) => this.matchesFilters(entry.transaction))
+      .reverse();
   }
 
   private matchesFilters(transaction: ITransaction) {

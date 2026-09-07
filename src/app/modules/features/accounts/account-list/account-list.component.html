@@ -9,33 +9,50 @@
     </div>
   }
 
-  @for (account of accounts; track account.id) {
-    <div class="card mb-2">
-      <div class="card-body d-flex justify-content-between align-items-center">
-        <div>
-          <h5 class="card-title mb-1">{{ account.name }}</h5>
-          <span
-            class="badge text-white mb-1"
+  <div class="row g-3">
+    @for (account of accounts; track account.id) {
+      <div class="col-12 col-md-6">
+        <div class="card h-100">
+          <div
+            class="card-header text-white d-flex align-items-center gap-2"
             [style.background-color]="account.type === 'chequing' ? '#2563eb' : '#16a34a'"
           >
-            {{ account.type }}
-          </span>
-          <p class="card-text text-muted mb-0">{{ account.balance | currency }}</p>
+            @if (account.type === 'chequing') {
+              <i class="bi bi-currency-dollar"></i>
+            } @else {
+              <i class="bi bi-piggy-bank"></i>
+            }
+            <span class="fw-bold text-capitalize">{{ account.type }}</span>
+          </div>
+
+          <div class="card-body d-flex flex-column py-4">
+            <h5 class="card-title fw-bold text-truncate">
+              {{ account.name }}
+            </h5>
+
+            <span class="d-block small text-muted lh-sm">Current balance</span>
+            <span class="d-block fs-4 mb-4 text-truncate">
+              {{ account.balance | currency }}
+            </span>
+
+            <button
+              type="button"
+              class="btn btn-outline-primary mt-auto align-self-start"
+              (click)="handleViewHistory(account.id)"
+            >
+              View history
+            </button>
+          </div>
         </div>
-        <button
-          type="button"
-          class="btn btn-outline-primary"
-          (click)="handleViewHistory(account.id)"
-        >
-          View history
-        </button>
       </div>
-    </div>
-  } @empty {
-    <app-empty-state
-      message="No other accounts available."
-      ctaText="Create an account"
-      ctaLink="/create-account"
-    ></app-empty-state>
-  }
+    } @empty {
+      <div class="col-12">
+        <app-empty-state
+          message="No other accounts available."
+          ctaText="Create an account"
+          ctaLink="/create-account"
+        ></app-empty-state>
+      </div>
+    }
+  </div>
 </div>

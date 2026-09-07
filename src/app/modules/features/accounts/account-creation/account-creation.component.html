@@ -1,3 +1,4 @@
+<!-- Overview header -->
 <div class="mb-4">
   <h1 class="fs-4 mb-1">Create an account</h1>
   <p class="text-muted mb-0">
@@ -6,6 +7,7 @@
   </p>
 </div>
 
+<!-- Form container -->
 <div class="card">
   <div class="card-body">
     <form [formGroup]="form" (ngSubmit)="handleSubmit()" class="d-flex flex-column">
@@ -38,25 +40,48 @@
 
       <div class="mb-3">
         <label class="form-label">Account Type</label>
-        <div class="form-check">
-          <input
-            class="form-check-input"
-            type="radio"
-            value="chequing"
-            formControlName="type"
-            id="chequing"
-          />
-          <label class="form-check-label" for="chequing">Chequing</label>
-        </div>
-        <div class="form-check">
-          <input
-            class="form-check-input"
-            type="radio"
-            value="savings"
-            formControlName="type"
-            id="savings"
-          />
-          <label class="form-check-label" for="savings">Savings</label>
+        <div class="row g-3">
+          <div class="col-6">
+            <label
+              class="account-type-card card h-100 position-relative"
+              [class.border-primary]="form.getRawValue().type === 'chequing'"
+              [class.bg-primary-subtle]="form.getRawValue().type === 'chequing'"
+              for="chequing"
+            >
+              <input
+                class="form-check-input position-absolute top-0 start-0 m-3"
+                type="radio"
+                value="chequing"
+                formControlName="type"
+                id="chequing"
+              />
+              <span class="card-body text-center py-4">
+                <i class="bi bi-currency-dollar d-block fs-3 mb-2"></i>
+                <span>Chequing</span>
+              </span>
+            </label>
+          </div>
+
+          <div class="col-6">
+            <label
+              class="account-type-card card h-100 position-relative"
+              [class.border-primary]="form.getRawValue().type === 'savings'"
+              [class.bg-primary-subtle]="form.getRawValue().type === 'savings'"
+              for="savings"
+            >
+              <input
+                class="form-check-input position-absolute top-0 start-0 m-3"
+                type="radio"
+                value="savings"
+                formControlName="type"
+                id="savings"
+              />
+              <span class="card-body text-center py-4">
+                <i class="bi bi-piggy-bank d-block fs-3 mb-2"></i>
+                <span>Savings</span>
+              </span>
+            </label>
+          </div>
         </div>
       </div>
 
