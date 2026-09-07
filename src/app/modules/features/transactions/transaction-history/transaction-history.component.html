@@ -1,4 +1,5 @@
 @if (account(); as viewedAccount) {
+  <!-- Current account info and balance -->
   <div class="d-flex justify-content-between align-items-start mb-4">
     <div>
       <span class="d-block small text-muted lh-sm">Transaction history for</span>
@@ -16,6 +17,66 @@
     </div>
   </div>
 
+  <!-- Filters -->
+  <div class="card mb-4">
+    <div class="card-body">
+      <form [formGroup]="filterForm" (ngSubmit)="applyFilters()">
+        <div class="row g-3">
+          <div class="col-6 col-md-3">
+            <label class="form-label small text-muted mb-1" for="minAmount">Min amount</label>
+            <input
+              id="minAmount"
+              type="text"
+              class="form-control"
+              formControlName="minAmount"
+              appValidCurrencyDirective
+            />
+          </div>
+          <div class="col-6 col-md-3">
+            <label class="form-label small text-muted mb-1" for="maxAmount">Max amount</label>
+            <input
+              id="maxAmount"
+              type="text"
+              class="form-control"
+              formControlName="maxAmount"
+              appValidCurrencyDirective
+            />
+          </div>
+          <div class="col-6 col-md-3">
+            <label class="form-label small text-muted mb-1" for="fromDate">From date</label>
+            <input id="fromDate" type="date" class="form-control" formControlName="fromDate" />
+          </div>
+          <div class="col-6 col-md-3">
+            <label class="form-label small text-muted mb-1" for="toDate">To date</label>
+            <input id="toDate" type="date" class="form-control" formControlName="toDate" />
+          </div>
+        </div>
+
+        @if (filterForm.hasError('amountRange')) {
+          <p class="text-danger small mb-0 mt-2">Min amount cannot be greater than max amount</p>
+        }
+        @if (filterForm.hasError('dateRange')) {
+          <p class="text-danger small mb-0 mt-2">From date cannot be after to date</p>
+        }
+
+        <div class="d-flex gap-2 mt-3">
+          <button type="submit" class="btn btn-primary" [disabled]="filterForm.invalid">
+            Apply filters
+          </button>
+          <button
+            type="button"
+            class="btn btn-outline-secondary"
+            [disabled]="!hasActiveFilters() && filterForm.pristine"
+            (click)="clearFilters()"
+          >
+            Clear filters
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Transactions data -->
   @for (entry of getTransactions(); track entry.transaction.id) {
     @let transaction = entry.transaction;
     @let isDeduction = transaction.from === id();
@@ -45,11 +106,15 @@
       </div>
     </div>
   } @empty {
-    <app-empty-state
-      message="No transactions yet."
-      ctaText="Make a transfer"
-      ctaLink="/transfer"
-    ></app-empty-state>
+    @if (hasActiveFilters()) {
+      <app-empty-state message="No transactions match these filters."></app-empty-state>
+    } @else {
+      <app-empty-state
+        message="No transactions yet."
+        ctaText="Make a transfer"
+        ctaLink="/transfer"
+      ></app-empty-state>
+    }
   }
 } @else {
   <app-empty-state
