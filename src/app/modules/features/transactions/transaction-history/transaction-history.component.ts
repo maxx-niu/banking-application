@@ -82,11 +82,40 @@ export class TransactionHistoryComponent {
   applyFilters() {
     if (this.filterForm.invalid) return;
     this.appliedFilters.set(this.filterForm.getRawValue());
+    // A narrower result set can have fewer pages than the one we're on
+    this.currentPage = 1;
   }
 
   clearFilters() {
     this.filterForm.reset(NO_FILTERS);
     this.appliedFilters.set(NO_FILTERS);
+    this.currentPage = 1;
+  }
+
+  readonly pageSizeOptions = [5, 10, 25, 50];
+  pageSize = 10;
+  currentPage = 1;
+
+  totalPages() {
+    return Math.max(1, Math.ceil(this.getTransactions().length / this.pageSize));
+  }
+
+  pageNumbers() {
+    return Array.from({ length: this.totalPages() }, (_, index) => index + 1);
+  }
+
+  pagedTransactions() {
+    const start = (this.currentPage - 1) * this.pageSize;
+    return this.getTransactions().slice(start, start + this.pageSize);
+  }
+
+  goToPage(page: number) {
+    this.currentPage = Math.min(Math.max(1, page), this.totalPages());
+  }
+
+  handlePageSizeChange(event: Event) {
+    this.pageSize = Number((event.target as HTMLSelectElement).value);
+    this.currentPage = 1;
   }
 
   getTransactions() {

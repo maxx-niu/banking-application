@@ -51,6 +51,7 @@
 
     @if (filtersOpen) {
       <div class="card-body" id="filters-body">
+        <!-- Filter controls -->
         <form [formGroup]="filterForm" (ngSubmit)="applyFilters()">
           <div class="row g-3">
             <div class="col-6 col-md-3">
@@ -110,12 +111,70 @@
             </button>
           </div>
         </form>
+
+        <hr class="my-3" />
+
+        <!-- Pagination page size select -->
+        <div class="row g-3 align-items-end">
+          <div class="col-6 col-md-3">
+            <label class="form-label small text-muted mb-1" for="pageSize"
+              >Transactions per page</label
+            >
+            <select
+              id="pageSize"
+              class="form-select"
+              [value]="pageSize"
+              (change)="handlePageSizeChange($event)"
+            >
+              @for (size of pageSizeOptions; track size) {
+                <option [value]="size">{{ size }}</option>
+              }
+            </select>
+          </div>
+
+          <!-- Pagination controls -->
+          <div class="col-12 col-md-9 d-flex justify-content-md-end">
+            <nav aria-label="Transaction pages">
+              <ul class="pagination mb-0">
+                <li class="page-item" [class.disabled]="currentPage === 1">
+                  <button
+                    type="button"
+                    class="page-link"
+                    [disabled]="currentPage === 1"
+                    (click)="goToPage(currentPage - 1)"
+                  >
+                    Previous
+                  </button>
+                </li>
+
+                @for (page of pageNumbers(); track page) {
+                  <li class="page-item" [class.active]="page === currentPage">
+                    <button type="button" class="page-link" (click)="goToPage(page)">
+                      {{ page }}
+                    </button>
+                  </li>
+                }
+
+                <li class="page-item" [class.disabled]="currentPage === totalPages()">
+                  <button
+                    type="button"
+                    class="page-link"
+                    [disabled]="currentPage === totalPages()"
+                    (click)="goToPage(currentPage + 1)"
+                  >
+                    Next
+                  </button>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
       </div>
     }
   </div>
 
   <!-- Transactions data -->
-  @for (entry of getTransactions(); track entry.transaction.id) {
+  @for (entry of pagedTransactions(); track entry.transaction.id) {
     @let transaction = entry.transaction;
     @let isDeduction = transaction.from === id();
     @let counterparty = getAccountFromId(isDeduction ? transaction.to : transaction.from);
