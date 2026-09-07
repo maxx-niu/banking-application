@@ -8,7 +8,7 @@ import { TransactionHistoryComponent } from './modules/features/accounts/transac
 export const routes: Routes = [
   { path: '', redirectTo: 'create-account', pathMatch: 'full' },
   { path: 'create-account', component: AccountCreationComponent },
-  { path: 'select-account', component: AccountListComponent },
+  { path: 'accounts', component: AccountListComponent },
   { path: 'transfer', component: FundTransferComponent },
   { path: 'history', component: TransactionHistoryComponent },
 ];

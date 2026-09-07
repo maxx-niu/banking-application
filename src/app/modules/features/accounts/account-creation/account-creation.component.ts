@@ -38,7 +38,7 @@ export class AccountCreationComponent {
       };
       this.accountService.registerAccount(account);
       this.accountService.setCurrentAccount(account);
-      this.router.navigate(['/select-account']);
+      this.router.navigate(['/accounts']);
     }
   }
 }
