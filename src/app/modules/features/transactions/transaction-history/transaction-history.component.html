@@ -29,67 +29,89 @@
 
   <!-- Filters -->
   <div class="card mb-4">
-    <div class="card-body">
-      <form [formGroup]="filterForm" (ngSubmit)="applyFilters()">
-        <div class="row g-3">
-          <div class="col-6 col-md-3">
-            <label class="form-label small text-muted mb-1" for="minAmount">Min amount</label>
-            <input
-              id="minAmount"
-              type="text"
-              class="form-control"
-              formControlName="minAmount"
-              appValidCurrencyDirective
-            />
-          </div>
-          <div class="col-6 col-md-3">
-            <label class="form-label small text-muted mb-1" for="maxAmount">Max amount</label>
-            <input
-              id="maxAmount"
-              type="text"
-              class="form-control"
-              formControlName="maxAmount"
-              appValidCurrencyDirective
-            />
-          </div>
-          <div class="col-6 col-md-3">
-            <label class="form-label small text-muted mb-1" for="fromDate">From date</label>
-            <input id="fromDate" type="date" class="form-control" formControlName="fromDate" />
-          </div>
-          <div class="col-6 col-md-3">
-            <label class="form-label small text-muted mb-1" for="toDate">To date</label>
-            <input id="toDate" type="date" class="form-control" formControlName="toDate" />
-          </div>
-        </div>
-
-        @if (filterForm.hasError('amountRange')) {
-          <p class="text-danger small mb-0 mt-2">Min amount cannot be greater than max amount</p>
-        }
-        @if (filterForm.hasError('dateRange')) {
-          <p class="text-danger small mb-0 mt-2">From date cannot be after to date</p>
-        }
-
-        <div class="d-flex gap-2 mt-3">
-          <button
-            type="submit"
-            class="btn btn-primary d-flex gap-2"
-            [disabled]="filterForm.invalid"
-          >
-            <i class="bi bi-search"></i>
-            <span>Apply filters</span>
-          </button>
-          <button
-            type="button"
-            class="btn btn-outline-secondary d-flex gap-2"
-            [disabled]="!hasActiveFilters() && filterForm.pristine"
-            (click)="clearFilters()"
-          >
-            <i class="bi bi-x-circle"></i>
-            <span>Clear filters</span>
-          </button>
-        </div>
-      </form>
+    <div class="card-header p-0">
+      <button
+        type="button"
+        class="btn w-100 d-flex justify-content-between align-items-center fw-bold text-start px-3 py-2"
+        (click)="toggleFilters()"
+      >
+        <span class="d-flex align-items-center gap-2">
+          <span>Filters</span>
+          @if (hasActiveFilters()) {
+            <span class="badge text-bg-success">Active</span>
+          }
+        </span>
+        <i
+          class="bi"
+          [class.bi-chevron-up]="filtersOpen"
+          [class.bi-chevron-down]="!filtersOpen"
+        ></i>
+      </button>
     </div>
+
+    @if (filtersOpen) {
+      <div class="card-body" id="filters-body">
+        <form [formGroup]="filterForm" (ngSubmit)="applyFilters()">
+          <div class="row g-3">
+            <div class="col-6 col-md-3">
+              <label class="form-label small text-muted mb-1" for="minAmount">Min amount</label>
+              <input
+                id="minAmount"
+                type="text"
+                class="form-control"
+                formControlName="minAmount"
+                appValidCurrencyDirective
+              />
+            </div>
+            <div class="col-6 col-md-3">
+              <label class="form-label small text-muted mb-1" for="maxAmount">Max amount</label>
+              <input
+                id="maxAmount"
+                type="text"
+                class="form-control"
+                formControlName="maxAmount"
+                appValidCurrencyDirective
+              />
+            </div>
+            <div class="col-6 col-md-3">
+              <label class="form-label small text-muted mb-1" for="fromDate">From date</label>
+              <input id="fromDate" type="date" class="form-control" formControlName="fromDate" />
+            </div>
+            <div class="col-6 col-md-3">
+              <label class="form-label small text-muted mb-1" for="toDate">To date</label>
+              <input id="toDate" type="date" class="form-control" formControlName="toDate" />
+            </div>
+          </div>
+
+          @if (filterForm.hasError('amountRange')) {
+            <p class="text-danger small mb-0 mt-2">Min amount cannot be greater than max amount</p>
+          }
+          @if (filterForm.hasError('dateRange')) {
+            <p class="text-danger small mb-0 mt-2">From date cannot be after to date</p>
+          }
+
+          <div class="d-flex gap-2 mt-3">
+            <button
+              type="submit"
+              class="btn btn-primary d-flex gap-2"
+              [disabled]="filterForm.invalid"
+            >
+              <i class="bi bi-search"></i>
+              <span>Apply filters</span>
+            </button>
+            <button
+              type="button"
+              class="btn btn-outline-secondary d-flex gap-2"
+              [disabled]="!hasActiveFilters() && filterForm.pristine"
+              (click)="clearFilters()"
+            >
+              <i class="bi bi-x-circle"></i>
+              <span>Clear filters</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    }
   </div>
 
   <!-- Transactions data -->

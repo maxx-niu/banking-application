@@ -68,6 +68,12 @@ export class TransactionHistoryComponent {
     return this.accountService.getAccountFromId(this.id());
   }
 
+  filtersOpen = true;
+
+  toggleFilters() {
+    this.filtersOpen = !this.filtersOpen;
+  }
+
   hasActiveFilters() {
     const { minAmount, maxAmount, fromDate, toDate } = this.appliedFilters();
     return !!(minAmount || maxAmount || fromDate || toDate);
