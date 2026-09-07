@@ -1,12 +1,21 @@
-<div>Available accounts:</div>
-<br />
-@for (account of accounts; track account.id) {
-  <button (click)="selectAccount(account)">
-    Account name: {{ account.name }} — Type: {{ account.type }} — Balance: ${{ account.balance }}
-  </button>
-}
-<br />
-<div>Currently on account: {{ currentAccount()?.name }}</div>
+<div class="mb-3">
+  <label class="form-label">Available accounts:</label>
+  <div class="list-group">
+    @for (account of accounts; track account.id) {
+      <button
+        type="button"
+        class="list-group-item list-group-item-action"
+        [class.active]="account.id === currentAccount()?.id"
+        (click)="selectAccount(account)"
+      >
+        {{ account.name }} — {{ account.type }} — ${{ account.balance }}
+      </button>
+    }
+  </div>
+</div>
+
+<div class="mb-3">Currently on account: {{ currentAccount()?.name }}</div>
+
 @if (currentAccount()) {
-  <button (click)="handleLogout()">logout</button>
+  <button type="button" class="btn btn-outline-secondary" (click)="handleLogout()">Logout</button>
 }

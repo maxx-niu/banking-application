@@ -1,4 +1,5 @@
 import { Directive, ElementRef, EventEmitter, HostListener, Output, inject } from '@angular/core';
+import { NgControl } from '@angular/forms';
 
 @Directive({
   selector: 'input[appValidCurrencyDirective]',
@@ -7,6 +8,7 @@ export class ValidCurrencyDirective {
   @Output() valueChange = new EventEmitter();
 
   private elementRef = inject(ElementRef);
+  private ngControl = inject(NgControl, { optional: true, self: true });
 
   private formatValue(value: string): string {
     // Get rid of everything that's not a digit and a dot
@@ -34,7 +36,9 @@ export class ValidCurrencyDirective {
   @HostListener('input', ['$event']) onInputChange(event: Event) {
     const initalValue = this.elementRef.nativeElement.value;
     const newValue = this.formatValue(initalValue);
+    // Update the DOM and the Angular control directive BOTH
     this.elementRef.nativeElement.value = newValue;
+    this.ngControl?.control?.setValue(newValue);
     this.valueChange.emit(newValue);
     if (initalValue !== this.elementRef.nativeElement.value) {
       event.stopPropagation();
