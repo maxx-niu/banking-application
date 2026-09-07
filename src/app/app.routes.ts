@@ -6,8 +6,8 @@ import { FundTransferComponent } from './modules/features/accounts/fund-transfer
 import { TransactionHistoryComponent } from './modules/features/accounts/transaction-history/transaction-history.component';
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'sign-up', pathMatch: 'full' },
-  { path: 'sign-up', component: AccountCreationComponent },
+  { path: '', redirectTo: 'create-account', pathMatch: 'full' },
+  { path: 'create-account', component: AccountCreationComponent },
   { path: 'select-account', component: AccountListComponent },
   { path: 'transfer', component: FundTransferComponent },
   { path: 'history', component: TransactionHistoryComponent },

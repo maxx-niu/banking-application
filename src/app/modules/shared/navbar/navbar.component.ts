@@ -24,6 +24,6 @@ export class NavbarComponent {
 
   handleLogout() {
     this.accountService.logout();
-    this.router.navigate(['/sign-up']);
+    this.router.navigate(['/create-account']);
   }
 }

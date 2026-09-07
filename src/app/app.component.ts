@@ -17,7 +17,7 @@ export class AppComponent implements OnInit {
     if (this.accountService.currentAccount()) return;
 
     if (this.accountService.getAccounts().length === 0) {
-      this.router.navigate(['/sign-up']);
+      this.router.navigate(['/create-account']);
     } else if (!this.accountService.currentAccount()) {
       this.router.navigate(['/select-account']);
     } else {
