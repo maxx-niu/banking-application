@@ -6,7 +6,7 @@ import {
   type ValidatorFn,
 } from '@angular/forms';
 
-import { AccountService } from '@app/global/services/account.service';
+import { AccountService } from '@app/services/account.service';
 
 @Component({
   selector: 'app-fund-transfer',

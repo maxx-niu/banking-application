@@ -5,7 +5,7 @@ import { RouterModule } from '@angular/router';
 import { routes } from './app.routes';
 import { AccountsModule } from './modules/features/accounts/accounts.module';
 import { SharedModule } from './modules/shared/shared.module';
-import { ValidCurrencyDirective } from './global/directives/valid-currency.directive';
+import { TransactionsModule } from './modules/features/transactions/transactions.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -13,8 +13,8 @@ import { ValidCurrencyDirective } from './global/directives/valid-currency.direc
     BrowserModule,
     RouterModule.forRoot(routes),
     AccountsModule,
+    TransactionsModule,
     SharedModule,
-    ValidCurrencyDirective,
   ],
   bootstrap: [AppComponent],
 })

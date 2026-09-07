@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 
-import { AccountService } from '@app/global/services/account.service';
+import { AccountService } from '@app/services/account.service';
 
 @Component({
   selector: 'app-transaction-history',

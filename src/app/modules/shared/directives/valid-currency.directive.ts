@@ -3,6 +3,7 @@ import { NgControl } from '@angular/forms';
 
 @Directive({
   selector: 'input[appValidCurrencyDirective]',
+  standalone: false,
 })
 export class ValidCurrencyDirective {
   @Output() valueChange = new EventEmitter();
