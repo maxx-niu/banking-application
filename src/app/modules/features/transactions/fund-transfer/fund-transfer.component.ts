@@ -29,7 +29,7 @@ export class FundTransferComponent {
     {
       fromId: ['', Validators.required],
       toId: ['', Validators.required],
-      amount: [0, [Validators.required, Validators.min(0.01)]],
+      amount: ['', [Validators.required, Validators.min(0.01)]],
     },
     { validators: [this.transferValidator] },
   );

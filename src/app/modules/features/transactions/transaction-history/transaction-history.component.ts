@@ -12,6 +12,10 @@ export class TransactionHistoryComponent {
 
   readonly id = input.required<string>();
 
+  account() {
+    return this.accountService.getAccountFromId(this.id());
+  }
+
   getTransactions() {
     return this.accountService.getTransactionHistory(this.id()) ?? [];
   }

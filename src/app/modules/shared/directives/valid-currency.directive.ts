@@ -1,4 +1,12 @@
-import { Directive, ElementRef, EventEmitter, HostListener, Output, inject } from '@angular/core';
+import {
+  Directive,
+  ElementRef,
+  EventEmitter,
+  HostBinding,
+  HostListener,
+  Output,
+  inject,
+} from '@angular/core';
 import { NgControl } from '@angular/forms';
 
 @Directive({
@@ -6,6 +14,7 @@ import { NgControl } from '@angular/forms';
   standalone: false,
 })
 export class ValidCurrencyDirective {
+  @HostBinding('attr.placeholder') readonly placeholder = '0.00';
   @Output() valueChange = new EventEmitter();
 
   private elementRef = inject(ElementRef);
@@ -32,6 +41,11 @@ export class ValidCurrencyDirective {
     return decimalPart === undefined
       ? trimmedIntPart
       : `${trimmedIntPart}.${decimalPart.slice(0, 2)}`;
+  }
+
+  @HostBinding('attr.placeholder')
+  get placeholderAttr() {
+    return '0.00';
   }
 
   @HostListener('input', ['$event']) onInputChange(event: Event) {
