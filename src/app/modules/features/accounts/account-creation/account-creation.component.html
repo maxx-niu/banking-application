@@ -1,84 +1,98 @@
-<form [formGroup]="form" (ngSubmit)="handleSubmit()" class="d-flex flex-column">
-  <div class="mb-3">
-    <label class="form-label">Account name</label>
-    <input
-      class="form-control"
-      [class.is-invalid]="
-        form.get('name')?.invalid && (form.get('name')?.touched || form.get('name')?.dirty)
-      "
-      type="text"
-      placeholder="Account name"
-      formControlName="name"
-    />
+<div class="mb-4">
+  <h1 class="fs-4 mb-1">Create an account</h1>
+  <p class="text-muted mb-0">
+    Give the account a name, choose whether it's chequing or savings, and set the balance it starts
+    with.
+  </p>
+</div>
 
-    @if (form.get('name')?.invalid && (form.get('name')?.touched || form.get('name')?.dirty)) {
-      <div class="invalid-feedback">
-        @if (form.get('name')?.hasError('required')) {
-          <div>Account name is required</div>
-        }
-        @if (form.get('name')?.hasError('minlength')) {
-          <div>Account name must be at least 2 characters long</div>
-        }
-        @if (form.get('name')?.hasError('maxlength')) {
-          <div>Account name cannot be greater than 30 characters long</div>
+<div class="card">
+  <div class="card-body">
+    <form [formGroup]="form" (ngSubmit)="handleSubmit()" class="d-flex flex-column">
+      <div class="mb-3">
+        <label class="form-label">Account name</label>
+        <input
+          class="form-control"
+          [class.is-invalid]="
+            form.get('name')?.invalid && (form.get('name')?.touched || form.get('name')?.dirty)
+          "
+          type="text"
+          placeholder="Account name"
+          formControlName="name"
+        />
+
+        @if (form.get('name')?.invalid && (form.get('name')?.touched || form.get('name')?.dirty)) {
+          <div class="invalid-feedback">
+            @if (form.get('name')?.hasError('required')) {
+              <div>Account name is required</div>
+            }
+            @if (form.get('name')?.hasError('minlength')) {
+              <div>Account name must be at least 2 characters long</div>
+            }
+            @if (form.get('name')?.hasError('maxlength')) {
+              <div>Account name cannot be greater than 30 characters long</div>
+            }
+          </div>
         }
       </div>
-    }
-  </div>
 
-  <div class="mb-3">
-    <label class="form-label">Account Type</label>
-    <div class="form-check">
-      <input
-        class="form-check-input"
-        type="radio"
-        value="chequing"
-        formControlName="type"
-        id="chequing"
-      />
-      <label class="form-check-label" for="chequing">Chequing</label>
-    </div>
-    <div class="form-check">
-      <input
-        class="form-check-input"
-        type="radio"
-        value="savings"
-        formControlName="type"
-        id="savings"
-      />
-      <label class="form-check-label" for="savings">Savings</label>
-    </div>
-  </div>
+      <div class="mb-3">
+        <label class="form-label">Account Type</label>
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="radio"
+            value="chequing"
+            formControlName="type"
+            id="chequing"
+          />
+          <label class="form-check-label" for="chequing">Chequing</label>
+        </div>
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="radio"
+            value="savings"
+            formControlName="type"
+            id="savings"
+          />
+          <label class="form-check-label" for="savings">Savings</label>
+        </div>
+      </div>
 
-  <div class="mb-3">
-    <label class="form-label"> Initial Balance </label>
-    <input
-      class="form-control"
-      [class.is-invalid]="
-        form.get('balance')?.invalid && (form.get('balance')?.touched || form.get('balance')?.dirty)
-      "
-      type="text"
-      formControlName="balance"
-      appValidCurrencyDirective
-    />
-    @if (
-      form.get('balance')?.invalid && (form.get('balance')?.touched || form.get('balance')?.dirty)
-    ) {
-      <div class="invalid-feedback">
-        @if (form.get('balance')?.hasError('required')) {
-          <div>An initial balance is required</div>
-        }
-        @if (form.get('balance')?.hasError('min')) {
-          <div>Initial balance cannot be negative</div>
+      <div class="mb-3">
+        <label class="form-label"> Initial Balance </label>
+        <input
+          class="form-control"
+          [class.is-invalid]="
+            form.get('balance')?.invalid &&
+            (form.get('balance')?.touched || form.get('balance')?.dirty)
+          "
+          type="text"
+          formControlName="balance"
+          appValidCurrencyDirective
+        />
+        @if (
+          form.get('balance')?.invalid &&
+          (form.get('balance')?.touched || form.get('balance')?.dirty)
+        ) {
+          <div class="invalid-feedback">
+            @if (form.get('balance')?.hasError('required')) {
+              <div>An initial balance is required</div>
+            }
+            @if (form.get('balance')?.hasError('min')) {
+              <div>Initial balance cannot be negative</div>
+            }
+          </div>
         }
       </div>
-    }
-  </div>
 
-  <app-button
-    [disabled]="form.invalid"
-    [buttonType]="form.getRawValue().type === 'chequing' ? 'primary' : 'secondary'"
-  >
-    Create account
-  </app-button>
-</form>
+      <app-button
+        [disabled]="form.invalid"
+        [buttonType]="form.getRawValue().type === 'chequing' ? 'primary' : 'secondary'"
+      >
+        Create account
+      </app-button>
+    </form>
+  </div>
+</div>
