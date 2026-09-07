@@ -1,19 +1,21 @@
 <nav class="navbar navbar-expand bg-body-tertiary border-bottom px-4 py-4">
-  <ul class="navbar-nav flex-row gap-3">
-    @if (hasAccounts() && hasLoggedIn()) {
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/select-account">Accounts</a>
-      </li>
-    }
-    <li class="nav-item">
-      <a class="nav-link" routerLink="/create-account">New Account</a>
-    </li>
+  <span class="navbar-brand lh-1">Banking App</span>
+
+  <ul class="navbar-nav flex-row align-items-center gap-3">
     @if (hasLoggedIn()) {
       <li class="nav-item">
         <a class="nav-link" routerLink="/transfer">Transfer</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" routerLink="/history">History</a>
+      </li>
+    }
+    @if (hasAccounts()) {
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/select-account">Accounts</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/create-account">New Account</a>
       </li>
     }
   </ul>
@@ -33,6 +35,10 @@
       <button type="button" class="btn btn-outline-danger btn-sm" (click)="handleLogout()">
         Logout
       </button>
+    </div>
+  } @else {
+    <div class="d-flex align-items-center gap-2 ms-auto">
+      <span class="badge text-bg-secondary">No active account</span>
     </div>
   }
 </nav>
