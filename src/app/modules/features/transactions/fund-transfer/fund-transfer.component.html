@@ -86,7 +86,14 @@
           }
         </div>
 
-        <button type="submit" class="btn btn-primary" [disabled]="form.invalid">Transfer</button>
+        <button
+          type="submit"
+          class="btn btn-primary my-3 d-flex gap-2 align-self-end"
+          [disabled]="form.invalid"
+        >
+          <i class="bi bi-send"></i>
+          <span>Transfer</span>
+        </button>
       </form>
     </div>
   </div>

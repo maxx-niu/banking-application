@@ -1,8 +1,17 @@
 <div class="mb-3">
+  <div class="mb-4">
+    <h1 class="fs-4 mb-1">Accounts</h1>
+    <p class="text-muted mb-0">
+      Every account you've opened, with its current balance. Open one to see its transaction
+      history.
+    </p>
+  </div>
+
+  <!-- Hidden when empty, so the empty state below is the only creation CTA -->
   @if (accounts.length > 0) {
     <div class="d-flex justify-content-between align-items-center mb-3">
-      <h4 class="mb-0">Your accounts ({{ accounts.length }}):</h4>
-      <a class="btn btn-outline-primary d-flex gap-2" routerLink="/create-account">
+      <h2 class="fs-5 mb-0">Your accounts ({{ accounts.length }}):</h2>
+      <a class="btn btn-outline-primary d-flex gap-2 flex-shrink-0" routerLink="/create-account">
         <i class="bi bi-plus-circle"></i>
         <span>New account</span>
       </a>
@@ -35,13 +44,13 @@
               {{ account.balance | currency }}
             </span>
 
-            <button
-              type="button"
-              class="btn btn-outline-primary mt-auto align-self-start"
+            <app-button
+              class="mt-auto align-self-start"
+              [buttonType]="account.type === 'chequing' ? 'primary' : 'secondary'"
               (click)="handleViewHistory(account.id)"
             >
               View history
-            </button>
+            </app-button>
           </div>
         </div>
       </div>
