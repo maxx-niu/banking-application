@@ -1,0 +1,38 @@
+<nav class="navbar navbar-expand bg-body-tertiary border-bottom px-4 py-4">
+  <ul class="navbar-nav flex-row gap-3">
+    @if (hasAccounts() && hasLoggedIn()) {
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/select-account">Accounts</a>
+      </li>
+    }
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/sign-up">New Account</a>
+    </li>
+    @if (hasLoggedIn()) {
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/transfer">Transfer</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/history">History</a>
+      </li>
+    }
+  </ul>
+
+  @if (currentAccount(); as current) {
+    <div class="d-flex align-items-center gap-5 ms-auto">
+      <div class="d-flex align-items-center gap-3">
+        <span class="fw-semibold">{{ current.name }}</span>
+        <span
+          class="badge text-white"
+          [style.background-color]="current.type === 'chequing' ? '#2563eb' : '#16a34a'"
+        >
+          {{ current.type }}
+        </span>
+        <span class="text-muted">{{ current.balance | currency }}</span>
+      </div>
+      <button type="button" class="btn btn-outline-danger btn-sm" (click)="handleLogout()">
+        Logout
+      </button>
+    </div>
+  }
+</nav>

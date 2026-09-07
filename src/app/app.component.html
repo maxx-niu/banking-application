@@ -1,13 +1,4 @@
-<nav class="d-flex gap-3 py-4 px-4 border-bottom">
-  @if (hasAccounts() && hasLoggedIn()) {
-    <a routerLink="/select-account">Accounts</a>
-  }
-  <a routerLink="/sign-up">New Account</a>
-  @if (hasLoggedIn()) {
-    <a routerLink="/transfer">Transfer</a>
-    <a routerLink="/history">History</a>
-  }
-</nav>
+<app-navbar></app-navbar>
 <div class="container py-4">
   <router-outlet />
 </div>
