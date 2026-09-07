@@ -60,16 +60,22 @@
         }
 
         <div class="d-flex gap-2 mt-3">
-          <button type="submit" class="btn btn-primary" [disabled]="filterForm.invalid">
-            Apply filters
+          <button
+            type="submit"
+            class="btn btn-primary d-flex gap-2"
+            [disabled]="filterForm.invalid"
+          >
+            <i class="bi bi-search"></i>
+            <span>Apply filters</span>
           </button>
           <button
             type="button"
-            class="btn btn-outline-secondary"
+            class="btn btn-outline-secondary d-flex gap-2"
             [disabled]="!hasActiveFilters() && filterForm.pristine"
             (click)="clearFilters()"
           >
-            Clear filters
+            <i class="bi bi-x-circle"></i>
+            <span>Clear filters</span>
           </button>
         </div>
       </form>
