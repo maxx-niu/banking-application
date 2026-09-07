@@ -16,7 +16,8 @@
     </div>
   </div>
 
-  @for (transaction of getTransactions(); track transaction.id) {
+  @for (entry of getTransactions(); track entry.transaction.id) {
+    @let transaction = entry.transaction;
     @let isDeduction = transaction.from === id();
     @let counterparty = getAccountFromId(isDeduction ? transaction.to : transaction.from);
 
@@ -29,13 +30,18 @@
           </p>
           <p class="small text-muted mb-0">{{ transaction.date | date: 'short' }}</p>
         </div>
-        <span
-          class="fw-semibold fs-5"
-          [class.text-danger]="isDeduction"
-          [class.text-success]="!isDeduction"
-        >
-          {{ isDeduction ? '-' : '+' }}{{ transaction.amount | currency }}
-        </span>
+        <div class="text-end">
+          <span
+            class="d-block fw-semibold fs-5"
+            [class.text-danger]="isDeduction"
+            [class.text-success]="!isDeduction"
+          >
+            {{ isDeduction ? '-' : '+' }}{{ transaction.amount | currency }}
+          </span>
+          <span class="d-block small text-muted lh-sm">
+            Balance {{ entry.balance | currency }}
+          </span>
+        </div>
       </div>
     </div>
   } @empty {
