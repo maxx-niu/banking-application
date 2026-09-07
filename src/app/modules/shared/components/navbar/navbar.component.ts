@@ -12,8 +12,6 @@ export class NavbarComponent {
   private accountService = inject(AccountService);
   private router = inject(Router);
 
-  currentAccount = this.accountService.currentAccount;
-
   hasLoggedIn() {
     return !!this.accountService.currentAccount();
   }
