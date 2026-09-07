@@ -1,4 +1,5 @@
 import { Component, inject } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
   NonNullableFormBuilder,
   Validators,
@@ -34,6 +35,16 @@ export class FundTransferComponent {
     { validators: [this.transferValidator] },
   );
 
+  lastTransfer: { amount: number; toName: string } | null = null;
+
+  constructor() {
+    // Listen for form value changes, and set the lastTransfer object to null on such an event.
+    // Pipe takeUntilDestroyed() to modify the stream and make sure it ends when component unmounts
+    this.form.valueChanges.pipe(takeUntilDestroyed()).subscribe(() => {
+      this.lastTransfer = null;
+    });
+  }
+
   getAccounts() {
     return this.accountService.getAccounts();
   }
@@ -57,9 +68,15 @@ export class FundTransferComponent {
   }
 
   handleSubmit() {
-    if (this.form.valid) {
-      const { fromId, toId, amount } = this.form.getRawValue();
-      this.accountService.transferFunds(fromId, toId, Number(amount));
-    }
+    if (this.form.invalid) return;
+
+    const { fromId, toId, amount } = this.form.getRawValue();
+    const recipient = this.accountService.getAccountFromId(toId);
+
+    if (!this.accountService.transferFunds(fromId, toId, Number(amount))) return;
+
+    // Clear the form and display the success badge on successful transfer
+    this.form.reset();
+    this.lastTransfer = { amount: Number(amount), toName: recipient?.name ?? 'the account' };
   }
 }
