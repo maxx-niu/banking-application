@@ -1,12 +1,4 @@
-import {
-  Directive,
-  ElementRef,
-  EventEmitter,
-  HostBinding,
-  HostListener,
-  Output,
-  inject,
-} from '@angular/core';
+import { Directive, ElementRef, HostBinding, HostListener, inject } from '@angular/core';
 import { NgControl } from '@angular/forms';
 
 @Directive({
@@ -15,7 +7,6 @@ import { NgControl } from '@angular/forms';
 })
 export class ValidCurrencyDirective {
   @HostBinding('attr.placeholder') readonly placeholder = '0.00';
-  @Output() valueChange = new EventEmitter();
 
   private elementRef = inject(ElementRef);
   private ngControl = inject(NgControl, { optional: true, self: true });
@@ -54,7 +45,8 @@ export class ValidCurrencyDirective {
     // Update the DOM and the Angular control directive BOTH
     this.elementRef.nativeElement.value = newValue;
     this.ngControl?.control?.setValue(newValue);
-    this.valueChange.emit(newValue);
+
+    // If we changed anything, pretend like it didn't happen
     if (initalValue !== this.elementRef.nativeElement.value) {
       event.stopPropagation();
     }
