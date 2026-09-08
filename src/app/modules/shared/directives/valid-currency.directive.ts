@@ -34,11 +34,6 @@ export class ValidCurrencyDirective {
       : `${trimmedIntPart}.${decimalPart.slice(0, 2)}`;
   }
 
-  @HostBinding('attr.placeholder')
-  get placeholderAttr() {
-    return '0.00';
-  }
-
   @HostListener('input', ['$event']) onInputChange(event: Event) {
     const initalValue = this.elementRef.nativeElement.value;
     const newValue = this.formatValue(initalValue);
